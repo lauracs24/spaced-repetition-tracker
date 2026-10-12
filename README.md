@@ -1,1 +1,1 @@
-# spaced-repetition-tracker.
+# spaced-repetition-tracker
