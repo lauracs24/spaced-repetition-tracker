@@ -38,3 +38,17 @@ function addMonths(startDate, months) {
 
   return formatDate(date);
 }
+
+// Calculate all five dates from the original study date.
+function calculateRevisionDates(startDate) {
+  const oneWeekLater = new Date(`${startDate}T00:00:00Z`);
+  oneWeekLater.setUTCDate(oneWeekLater.getUTCDate() + 7);
+
+  return [
+    formatDate(oneWeekLater),
+    addMonths(startDate, 1),
+    addMonths(startDate, 3),
+    addMonths(startDate, 6),
+    addMonths(startDate, 12),
+  ];
+}
