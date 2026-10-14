@@ -1,6 +1,6 @@
 // Find the date picker on the page.
 
-const StartDateInput = document.getElementById("start-date");
+const startDateInput = document.getElementById("start-date");
 
 // Get today's year, month and day.
 
