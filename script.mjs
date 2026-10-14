@@ -21,3 +21,20 @@ function getToday() {
 function formatDate(date) {
   return date.toISOString().slice(0, 10);
 }
+
+// Add calendar months, adjusting for shorter months.
+function addMonths(startDate, months) {
+  const date = new Date(`${startDate}T00:00:00Z`);
+  const originalDay = date.getUTCDate();
+
+  date.setUTCDate(1);
+  date.setUTCMonth(date.getUTCMonth() + months);
+
+  const lastDay = new Date(
+    Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + 1, 0)
+  ).getUTCDate();
+
+  date.setUTCDate(Math.min(originalDay, lastDay));
+
+  return formatDate(date);
+}
