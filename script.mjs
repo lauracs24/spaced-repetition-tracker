@@ -16,3 +16,8 @@ function getToday() {
 
   return `${year}-${month}-${day}`;
 }
+
+// Convert a UTC date to YYYY-MM-DD.
+function formatDate(date) {
+  return date.toISOString().slice(0, 10);
+}
