@@ -52,3 +52,40 @@ function calculateRevisionDates(startDate) {
     addMonths(startDate, 12),
   ];
 }
+
+// Display the selected user's upcoming revisions.
+function renderAgenda() {
+  agendaList.replaceChildren();
+
+  const selectedUser = userSelect.value;
+
+  if (!selectedUser) {
+    agendaMessage.textContent =
+      "Choose a user to see their revision dates.";
+    return;
+  }
+
+  const revisions = getData(selectedUser) || [];
+  const today = getToday();
+
+  const upcomingRevisions = revisions
+    .filter((revision) => revision.date >= today)
+    .sort((a, b) => a.date.localeCompare(b.date));
+
+  if (upcomingRevisions.length === 0) {
+    agendaMessage.textContent =
+      revisions.length === 0
+        ? "No revision dates saved for this user."
+        : "No upcoming revision dates for this user.";
+    return;
+  }
+
+  agendaMessage.textContent =
+    `${upcomingRevisions.length} upcoming revision dates.`;
+
+  for (const revision of upcomingRevisions) {
+    const listItem = document.createElement("li");
+    listItem.textContent = `${revision.topic} — ${revision.date}`;
+    agendaList.appendChild(listItem);
+  }
+}
