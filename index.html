@@ -1,39 +1,50 @@
 <!DOCTYPE html>
-<html lang = "en">
+<html lang="en">
   <head>
     <meta charset="UTF-8">
     <title>Spaced Repetition Tracker</title>
     <script type="module" src="script.mjs"></script>
   </head>
+
   <body>
     <h1>Spaced Repetition Tracker</h1>
 
     <!-- Choose whose revision agenda to view. -->
+    <label for="user">Choose a user:</label>
 
-     <label for = "user">Choose a user:</label>
+    <select id="user">
+      <option value="" selected disabled>Choose a user</option>
+      <option value="1">User 1</option>
+      <option value="2">User 2</option>
+      <option value="3">User 3</option>
+      <option value="4">User 4</option>
+      <option value="5">User 5</option>
+    </select>
 
-     <select id ="user">
-       <option value ="" selected disabled>Choose a user</option>
-       <option value="1">User 1</option>
-       <option value ="2">User 2</option>
-       <option value ="3">User 3</option>
-       <option value ="4">User 4</option>
-       <option value ="5">User 5</option>
-     </select>
+    <h2>Add a topic</h2>
 
-     <h2>Add a topic</h2>
-     <!-- Enter what you studied and when. -->
-      <form id ="topic-form">
-        <p>
-           <label for="topic">Topic name:</label>
-           <input type="text" id="topic" name="topic" required>
-        </p>
+    <!-- Enter what you studied and when. -->
+    <form id="topic-form">
+      <p>
+        <label for="topic">Topic name:</label>
+        <input type="text" id="topic" name="topic" required>
+      </p>
 
-         <p>
-           <label for="start-date">Date studied:</label>
-           <input type="date" id="start-date" name="start-date" required>
-         </p>
-         <button type = "submit">Add topic</button>
-      </form>
+      <p>
+        <label for="start-date">Date studied:</label>
+        <input type="date" id="start-date" name="start-date" required>
+      </p>
+
+      <button type="submit">Add topic</button>
+    </form>
+
+    <!-- Show revision topics and dates here. -->
+    <h2>Your revision agenda</h2>
+
+    <p id="agenda-message" aria-live="polite">
+      Choose a user to see their revision dates.
+    </p>
+
+    <ul id="agenda-list"></ul>
   </body>
 </html>
