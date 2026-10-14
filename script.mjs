@@ -37,7 +37,7 @@ function addMonths(startDate, months) {
 
   // Day 0 of the following month is the last day of the target month.
   const lastDay = new Date(
-    Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + 1, 0)
+    Date.UTC(date.getUTCFullYear(), date.getUTCMonth() + 1, 0),
   ).getUTCDate();
 
   // Restore the original day, or use the last day if this month is shorter.
@@ -103,8 +103,7 @@ function renderAgenda() {
   }
 
   // Show how many upcoming revision dates the selected user has.
-  agendaMessage.textContent =
-    `${upcomingRevisions.length} upcoming revision dates.`;
+  agendaMessage.textContent = `${upcomingRevisions.length} upcoming revision dates.`;
 
   // Create one list item for each upcoming revision.
   for (const revision of upcomingRevisions) {
@@ -117,3 +116,49 @@ function renderAgenda() {
     agendaList.appendChild(listItem);
   }
 }
+
+// Set the date picker to today.
+startDateInput.value = getToday();
+
+// Show the relevant agenda when a user is selected.
+userSelect.addEventListener("change", renderAgenda);
+
+// Clear the topic validation message when typing.
+topicInput.addEventListener("input", () => {
+  topicInput.setCustomValidity("");
+});
+
+// Save the topic's revision dates when the form is submitted.
+topicForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const selectedUser = userSelect.value;
+  const topic = topicInput.value.trim();
+  const startDate = startDateInput.value;
+
+  if (!selectedUser) {
+    agendaMessage.textContent = "Choose a user before adding a topic.";
+    userSelect.focus();
+    return;
+  }
+
+  topicInput.setCustomValidity(topic ? "" : "Please enter a topic name.");
+
+  if (!topicForm.reportValidity()) {
+    return;
+  }
+
+  const newRevisions = calculateRevisionDates(startDate).map((date) => ({
+    topic,
+    date,
+  }));
+
+  addData(selectedUser, newRevisions);
+  renderAgenda();
+
+  topicInput.value = "";
+  topicInput.focus();
+});
+
+// Show the initial message on page load.
+renderAgenda();
