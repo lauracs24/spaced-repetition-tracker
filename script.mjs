@@ -31,8 +31,7 @@ function renderAgenda() {
 
   // Wait until a user has been selected.
   if (!selectedUser) {
-    agendaMessage.textContent =
-      "Choose a user to see their revision dates.";
+    agendaMessage.textContent = "Choose a user to see their revision dates.";
     return;
   }
 
@@ -55,8 +54,7 @@ function renderAgenda() {
     return;
   }
 
-  agendaMessage.textContent =
-    `${upcomingRevisions.length} upcoming revision dates.`;
+  agendaMessage.textContent = `${upcomingRevisions.length} upcoming revision dates.`;
 
   // Display the topic and date for each revision.
   for (const revision of upcomingRevisions) {
@@ -90,16 +88,13 @@ topicForm.addEventListener("submit", (event) => {
 
   // A user must be selected before saving a topic.
   if (!selectedUser) {
-    agendaMessage.textContent =
-      "Choose a user before adding a topic.";
+    agendaMessage.textContent = "Choose a user before adding a topic.";
     userSelect.focus();
     return;
   }
 
   // Reject a topic containing only spaces.
-  topicInput.setCustomValidity(
-    topic ? "" : "Please enter a topic name."
-  );
+  topicInput.setCustomValidity(topic ? "" : "Please enter a topic name.");
 
   // Show validation errors and stop if the form is invalid.
   if (!topicForm.reportValidity()) {
