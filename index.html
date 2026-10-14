@@ -1,19 +1,32 @@
 <!DOCTYPE html>
+<!-- Tell the browser this document uses HTML5. -->
 <html lang="en">
+  <!-- Set the page language for screen readers and other tools. -->
   <head>
+    <!-- Support characters such as accented letters and symbols. -->
     <meta charset="UTF-8">
+
+    <!-- The title appears in the browser tab. -->
     <title>Spaced Repetition Tracker</title>
+
+    <!-- Load JavaScript as a module so it can use imports.
+         Modules run after the HTML has been parsed. -->
     <script type="module" src="script.mjs"></script>
   </head>
 
   <body>
+    <!-- The main heading describes the page. -->
     <h1>Spaced Repetition Tracker</h1>
 
-    <!-- Choose whose revision agenda to view. -->
+    <!-- The label's for attribute matches the dropdown's id. -->
     <label for="user">Choose a user:</label>
 
     <select id="user">
+      <!-- Show a placeholder initially, so no actual user is selected.
+           disabled prevents choosing the placeholder again. -->
       <option value="" selected disabled>Choose a user</option>
+
+      <!-- These values identify each user when loading or saving data. -->
       <option value="1">User 1</option>
       <option value="2">User 2</option>
       <option value="3">User 3</option>
@@ -23,28 +36,41 @@
 
     <h2>Add a topic</h2>
 
-    <!-- Enter what you studied and when. -->
+    <!-- JavaScript uses this id to handle form submission.
+         A form supports submission using the keyboard. -->
     <form id="topic-form">
       <p>
+        <!-- Matching for and id attributes connect the label and input. -->
         <label for="topic">Topic name:</label>
+
+        <!-- required prevents submission when the input is empty.
+             JavaScript also checks for topics containing only spaces. -->
         <input type="text" id="topic" name="topic" required>
       </p>
 
       <p>
         <label for="start-date">Date studied:</label>
+
+        <!-- Use the browser's built-in date picker.
+             JavaScript sets its initial value to today's date. -->
         <input type="date" id="start-date" name="start-date" required>
       </p>
 
+      <!-- Submitting triggers the form's submit listener in JavaScript. -->
       <button type="submit">Add topic</button>
     </form>
 
-    <!-- Show revision topics and dates here. -->
     <h2>Your revision agenda</h2>
 
+    <!-- JavaScript updates this message when the agenda changes.
+         aria-live="polite" asks screen readers to announce updates
+         without interrupting what they are currently reading. -->
     <p id="agenda-message" aria-live="polite">
       Choose a user to see their revision dates.
     </p>
 
+    <!-- Start with an empty list.
+         JavaScript adds an li element for each upcoming revision. -->
     <ul id="agenda-list"></ul>
   </body>
 </html>
