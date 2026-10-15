@@ -7,8 +7,8 @@ Checked that the dropdown contains exactly five users.
 
 ## Empty initial agendas
 
-Opened the website in an Incognito window and selected each of the
-five users. Every user displayed:
+Opened the website in a fresh Incognito session and selected each
+of the five users. Every user displayed:
 "No revision dates saved for this user."
 
 ## Loading the selected user's agenda
@@ -24,8 +24,9 @@ Selected a user with no saved topics and checked that the page displayed:
 ## Topic form
 
 Checked that the form contains a labelled topic input, a built-in
-date picker and a submit button. The form remained available after
-adding a topic.
+date picker and a submit button.
+
+The form remained available after adding a topic.
 
 ## Default date
 
@@ -34,23 +35,30 @@ Refreshed the page and checked that the date picker defaulted to today.
 ## Form validation
 
 Tried submitting an empty topic, a topic containing only spaces,
-and a missing date. Each attempt was rejected without adding revisions.
+and a missing date.
+
+Each attempt was rejected without adding revisions.
 
 ## Revision-date calculations
 
 Unit tests in `common.test.mjs`.
 
-The tests check all five revision intervals, spring and autumn
-daylight-saving boundaries, shorter months and leap years.
+The tests check:
+- All five revision intervals
+- Dates crossing the spring daylight-saving boundary
+- Dates crossing the autumn daylight-saving boundary
+- Shorter months
+- Leap years
 
-Also added "Functions in JS" with a study date of 19 July 2027.
+Also tested the published website by adding "Functions in JS"
+for User 1 with a study date of 19 July 2027.
+
 The agenda displayed:
-
-- 26 July 2027
-- 19 August 2027
-- 19 October 2027
-- 19 January 2028
-- 19 July 2028
+- Functions in JS — 2027-07-26
+- Functions in JS — 2027-08-19
+- Functions in JS — 2027-10-19
+- Functions in JS — 2028-01-19
+- Functions in JS — 2028-07-19
 
 All dates matched the rubric.
 
@@ -61,24 +69,37 @@ without refreshing the page.
 
 ## Chronological order
 
-For User 2, added "Variables in Python" dated 5 November 2027,
-then "Functions in Python" dated 5 October 2027.
+On the published website, added these topics for User 2 in this order:
+1. Variables in Python — study date 5 November 2027
+2. Functions in Python — study date 5 October 2027
 
-All ten revisions appeared in the chronological order specified
-in the rubric, even though the later study date was entered first.
+The agenda displayed:
+- Functions in Python — 2027-10-12
+- Functions in Python — 2027-11-05
+- Variables in Python — 2027-11-12
+- Variables in Python — 2027-12-05
+- Functions in Python — 2028-01-05
+- Variables in Python — 2028-02-05
+- Functions in Python — 2028-04-05
+- Variables in Python — 2028-05-05
+- Functions in Python — 2028-10-05
+- Variables in Python — 2028-11-05
+
+All ten revisions appeared in the expected chronological order,
+even though the later study date was entered first.
 
 ## Past revisions hidden
 
-For User 3, added "Codewars" dated 14 September 2026.
+On 15 October 2026, tested the published website by adding "Codewars"
+for User 3 with a study date of 15 September 2026.
 
-On 14 October 2026, the agenda displayed:
+The agenda displayed:
+- Codewars — 2026-10-15
+- Codewars — 2026-12-15
+- Codewars — 2027-03-15
+- Codewars — 2027-09-15
 
-- 14 October 2026
-- 14 December 2026
-- 14 March 2027
-- 14 September 2027
-
-The revision dated 21 September 2026 was hidden because it was
+The revision dated 22 September 2026 was hidden because it was
 in the past. The revision due that day remained visible.
 
 ## Persistence across page loads
@@ -93,30 +114,37 @@ The topic was saved and five correct revision dates appeared.
 
 ## Accessibility
 
-Ran Lighthouse in Snapshot mode with Desktop selected for:
-
+Ran Lighthouse in Snapshot mode with Desktop selected on the
+published website for:
 - No user selected
 - A user with an empty agenda
 - A user with saved revisions
 
-All automated accessibility checks passed in each view.
+All automated accessibility checks passed.
+Two views passed 17/17 checks and one passed 18/18 checks.
 
 ## Unit-test command
 
-Ran `npm i && npm test`. All five tests passed.
+Ran:
 
-The tests import calculateRevisionDates from common.mjs.
+```bash
+npm i && npm test
+```
+
+All five tests passed.
+
+The tests import `calculateRevisionDates` from `common.mjs`.
 The website imports and uses that same function.
 
 ## No dead or unused code
 
-Reviewed script.mjs and common.mjs. All functions are used.
-Removed the original getUserIds sample and its test.
-Removed duplicate date functions from script.mjs.
+Reviewed `script.mjs` and `common.mjs`. All functions are used.
+Removed the original `getUserIds` sample and its test.
+Removed duplicate date functions from `script.mjs`.
 No commented-out code remains in these files.
 
-The supplied storage.mjs was kept unchanged, including its
-development helper clearData.
+The supplied `storage.mjs` was kept unchanged, including its
+development helper `clearData`, which the brief permits.
 
 ## Indentation
 
@@ -125,15 +153,21 @@ Format Document command.
 
 ## Project repository
 
-Still to verify: the project is in its own repository, contains no
-other projects, and is not a fork of CodeYourFuture/Checkpoint.
+The project is stored in its own repository:
+
+https://github.com/lauracs24/spaced-repetition-tracker
+
+The reviewed project folder contains the tracker source files,
+tests, package files and documentation.
 
 ## Deployment
 
-Still to verify: the website is publicly accessible and automatically
-deploys changes merged into the deployment branch.
+The published website is available at:
 
-## Final submission
+https://lauracs24.github.io/spaced-repetition-tracker/
 
-Still to complete: rerun the rubric checks on the deployed website,
-confirm all tests pass, and record the final commit SHA for submission.
+GitHub Pages is configured to deploy from the `main` branch.
+Changes merged into `main` trigger deployment automatically.
+
+Confirmed that the published website loads and that all three
+manual date scenarios produce the expected results.
